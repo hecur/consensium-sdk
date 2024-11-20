@@ -1,4 +1,4 @@
-class ConsensiumClient:
+class PredictorClient:
     def __init__(self, base_url='https://consensium-service-725186917460.europe-west2.run.app'):
         pass
 
