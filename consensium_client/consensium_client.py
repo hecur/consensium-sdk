@@ -23,13 +23,17 @@ class OwnerClient:
         self._base_url = base_url
         self._headers = {"Authorization": f"Bearer {self._owner_token}"}
 
-    def create_project(self, policy):
-        return requests.post(f"{self._base_url}/projects", headers=self._headers, json={"policy": policy}).json()
+    def create_project(self, policy_document):
+        return requests.post(f"{self._base_url}/projects", headers=self._headers, json={"policy_document": policy_document}).json()
 
-    def update_policy(self, project_id, policy):
-        return requests.put(f"{self._base_url}/projects/{project_id}/policy", headers=self._headers, json={"policy": policy}).json()
+    def update_policy(self, project_id, policy_document):
+        return requests.put(f"{self._base_url}/projects/{project_id}/policy", headers=self._headers, json={"policy_document": policy_document}).json()
     
-    def 
+    def add_predictor(self, project_id, predictor_ids):
+        return requests.put(f"{self._base_url}/projects/{project_id}/predictors", headers=self._headers, json={"predictor_ids": predictor_ids}).json()
+    
+    def add_moderator(self, project_id, moderator_ids):
+        return requests.put(f"{self._base_url}/projects/{project_id}/moderators", headers=self._headers, json={"moderator_ids": moderator_ids}).json()
 
     def put_instance(self, project_id, features):
         return requests.post(f"{self._base_url}/projects/{project_id}/instances", headers=self._headers, json={"features": features}).json()
