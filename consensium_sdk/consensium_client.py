@@ -62,8 +62,14 @@ class PredictorClient:
         response = requests.get(f"{self._base_url}/projects/{project_id}", headers=self._headers)
         return response.json(), response.status_code
 
-    def get_instance_batch(self, project_id: str, last_instance_id: str, batch_size: int):
-        response = requests.get(f"{self._base_url}/projects/{project_id}/instances?last_instance_id={last_instance_id}&batch_size={batch_size}", headers=self._headers)
+    def get_instance_batch(self, project_id: str, last_instance_id=None, batch_size=None):
+        url = f"{self._base_url}/projects/{project_id}/instances"
+        params = {}
+        if last_instance_id is not None:
+            params['last_instance_id'] = last_instance_id
+        if batch_size is not None:
+            params['batch_size'] = batch_size
+        response = requests.get(url, headers=self._headers, params=params)
         return response.json(), response.status_code
 
     def put_prediction(self, project_id: str, instance_id: str, prediction_yes: float):
