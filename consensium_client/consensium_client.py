@@ -1,3 +1,5 @@
+import requests
+
 base_url = 'https://consensium-service-725186917460.europe-west2.run.app'
 
 class ModeratorClient:
@@ -26,17 +28,21 @@ class OwnerClient:
 
 
 class PredictorClient:
-    def __init__(self, base_url=base_url):
-        pass
+    _predictor_token: str
+    _base_url: str
+
+    def __init__(self, predictor_token, base_url=base_url):
+        self._predictor_token = predictor_token
+        self._base_url = base_url
 
     def list_projects(self):
-        pass
+        return requests.get(f"{self._base_url}/projects", headers={"Authorization": f"Bearer {self._predictor_token}"}).json()
 
     def get_project(self, project_id):
-        pass
+        return requests.get(f"{self._base_url}/projects/{project_id}", headers={"Authorization": f"Bearer {self._predictor_token}"}).json()
 
     def get_instance_batch(self, project_id, last_instance_id, batch_size):
-        pass
+        return requests.get(f"{self._base_url}/projects/{project_id}/instances?last_instance_id={last_instance_id}&batch_size={batch_size}", headers={"Authorization": f"Bearer {self._predictor_token}"}).json()
 
     def put_prediction(self, project_id, instance_id, prediction):
-        pass
+        return requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/predictions", headers={"Authorization": f"Bearer {self._predictor_token}"}, json={"prediction": prediction})
