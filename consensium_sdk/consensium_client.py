@@ -3,14 +3,18 @@ import requests
 base_url = 'https://consensium-service-725186917460.europe-west2.run.app'
 
 class ModeratorClient:
-    def __init__(self, base_url=base_url):
-        pass
+    def __init__(self, moderator_token, base_url=base_url):
+        self._moderator_token = moderator_token
+        self._base_url = base_url
+        self._headers = {"Authorization": f"Bearer {self._moderator_token}"}
 
     def get_next(self, project_id):
-        pass
+        response = requests.get(f"{self._base_url}/projects/{project_id}/predictions/next", headers=self._headers)
+        return response.json(), response.status_code
 
-    def feedback(self, project_id, instance_id, feedback):
-        pass
+    def feedback(self, project_id, prediction_id, feedback):
+        response = requests.post(f"{self._base_url}/projects/{project_id}/predictions/{prediction_id}/feedback", headers=self._headers, json={"feedback": feedback})
+        return response.json(), response.status_code
 
 
 class OwnerClient:
