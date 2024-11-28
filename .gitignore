@@ -1,3 +1,4 @@
 consensium_sdk.egg-info/
 __pycache__/*
 *.pyc
+dist/*
