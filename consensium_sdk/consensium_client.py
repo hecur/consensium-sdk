@@ -30,6 +30,10 @@ class OwnerClient:
     def create_project(self, project: dict):
         response = requests.post(f"{self._base_url}/projects", headers=self._headers, json=project)
         return response.json(), response.status_code
+    
+    def get_project(self, project_id: str):
+        response = requests.get(f"{self._base_url}/projects/{project_id}", headers=self._headers)
+        return response.json(), response.status_code
 
     def update_policy(self, project_id: str, policy_document: str):
         response = requests.put(f"{self._base_url}/projects/{project_id}/policy", headers=self._headers, json={"policy_document": policy_document})
