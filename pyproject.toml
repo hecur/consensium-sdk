@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "consensium-sdk"
-version = "0.1.3"
+version = "0.1.4"
 description = "Consensium SDK"
 authors = [
     { name="Hector Urdiales", email="hector@consensium.io" }
