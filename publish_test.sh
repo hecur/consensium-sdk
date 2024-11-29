@@ -11,8 +11,18 @@ fi
 
 # Increment patch version in pyproject.toml
 current_version=$(grep "version = " pyproject.toml | cut -d'"' -f2)
+echo "Current version: $current_version"
+
 new_version=$(echo $current_version | awk -F. '{$NF = $NF + 1;}1' OFS=.)
-sed -i '' "s/version = \"$current_version\"/version = \"$new_version\"/" pyproject.toml
+echo "New version: $new_version"
+
+# Ensure the version strings aren't empty before attempting replacement
+if [ -n "$current_version" ] && [ -n "$new_version" ]; then
+    sed -i '' "s/version = \"${current_version}\"/version = \"${new_version}\"/" pyproject.toml
+else
+    echo "Error: Could not determine version numbers"
+    exit 1
+fi
 
 # Commit version increment
 git add pyproject.toml
