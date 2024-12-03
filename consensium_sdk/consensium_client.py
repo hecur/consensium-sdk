@@ -9,7 +9,7 @@ class ModeratorClient:
         self._headers = {"Authorization": f"Bearer {self._moderator_token}"}
 
     def get_next(self, project_id):
-        response = requests.get(f"{self._base_url}/projects/{project_id}/predictions/next", headers=self._headers)
+        response = requests.get(f"{self._base_url}/projects/{project_id}/instances/next", headers=self._headers)
         return response.json(), response.status_code
 
     def feedback(self, project_id, instance_id, feedback):
