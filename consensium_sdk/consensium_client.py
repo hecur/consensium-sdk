@@ -13,11 +13,11 @@ class ModeratorClient:
         self._base_url = base_url
         self._headers = {"Authorization": f"Bearer {self._moderator_token}"}
 
-    def get_next(self, project_id):
+    def get_next(self, project_id: str):
         response = requests.get(f"{self._base_url}/projects/{project_id}/instances/next", headers=self._headers)
         return response.json(), response.status_code
 
-    def feedback(self, project_id, instance_id, feedback):
+    def feedback(self, project_id: str, instance_id: str, feedback: list[float]):
         response = requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/feedback", headers=self._headers, json={"feedback": feedback})
         return response.json(), response.status_code
 
@@ -87,6 +87,6 @@ class PredictorClient:
         response = requests.get(url, headers=self._headers, params=params)
         return response.json(), response.status_code
 
-    def put_prediction(self, project_id: str, instance_id: str, prediction_yes: float):
-        response = requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/predictions", headers=self._headers, json={"prediction_yes": prediction_yes})
+    def put_prediction(self, project_id: str, instance_id: str, prediction: list[float]):
+        response = requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/predictions", headers=self._headers, json={"prediction": prediction})
         return response.json(), response.status_code
