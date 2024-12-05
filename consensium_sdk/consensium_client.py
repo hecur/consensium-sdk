@@ -55,6 +55,22 @@ class OwnerClient:
     def put_instance(self, project_id: str, features: dict):
         response = requests.post(f"{self._base_url}/projects/{project_id}/instances", headers=self._headers, json={"features": features})
         return response.json(), response.status_code
+    
+    def get_instance(self, project_id: str, instance_id: str):
+        response = requests.get(f"{self._base_url}/projects/{project_id}/instances/{instance_id}", headers=self._headers)
+        return response.json(), response.status_code
+    
+    def get_instance_batch(self, project_id: str, last_instance_id: str = None, batch_size: int = None, feedback_filter: FeedbackFilter = FeedbackFilter.ALL):
+        url = f"{self._base_url}/projects/{project_id}/instances"
+        params = {}
+        if last_instance_id is not None:
+            params['last_instance_id'] = last_instance_id
+        if batch_size is not None:
+            params['batch_size'] = batch_size
+        if feedback_filter is not None:
+            params['feedback_filter'] = feedback_filter.value
+        response = requests.get(url, headers=self._headers, params=params)
+        return response.json(), response.status_code
 
 
 class PredictorClient:
