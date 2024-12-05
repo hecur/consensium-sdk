@@ -7,6 +7,10 @@ class FeedbackFilter(Enum):
     HAS_FEEDBACK = 'has_feedback'
     ALL = 'all'
 
+class ProjectType(Enum):
+    PREDICTIVE = 'predictive'
+    GENERATIVE = 'generative'
+
 class ModeratorClient:
     def __init__(self, moderator_token, base_url=base_url):
         self._moderator_token = moderator_token
