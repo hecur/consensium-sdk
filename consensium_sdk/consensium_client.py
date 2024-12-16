@@ -21,8 +21,8 @@ class ModeratorClient:
         response = requests.get(f"{self._base_url}/projects/{project_id}/instances/next", headers=self._headers)
         return response.json(), response.status_code
 
-    def feedback(self, project_id: str, instance_id: str, feedback: list[float]):
-        response = requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/feedback", headers=self._headers, json={"feedback": feedback})
+    def feedback(self, project_id: str, instance_id: str, feedback: list[float], text: str = None):
+        response = requests.post(f"{self._base_url}/projects/{project_id}/instances/{instance_id}/feedback", headers=self._headers, json={"feedback": feedback, "text": text})
         return response.json(), response.status_code
 
 
