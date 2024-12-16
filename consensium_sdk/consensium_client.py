@@ -11,6 +11,13 @@ class ProjectType(Enum):
     PREDICTIVE = 'predictive'
     GENERATIVE = 'generative'
 
+class OrderBy(Enum):
+    CREATED_AT = 'created_at'
+    RANDOM = 'random'
+    VARIANCE = 'variance'
+    FORECAST = 'forecast'
+    BRAIDED = 'braided'
+
 class ModeratorClient:
     def __init__(self, moderator_token, base_url=base_url):
         self._moderator_token = moderator_token
@@ -64,7 +71,7 @@ class OwnerClient:
         response = requests.get(f"{self._base_url}/projects/{project_id}/instances/{instance_id}", headers=self._headers)
         return response.json(), response.status_code
     
-    def get_instance_batch(self, project_id: str, last_instance_id: str = None, batch_size: int = None, feedback_filter: FeedbackFilter = FeedbackFilter.ALL):
+    def get_instance_batch(self, project_id: str, last_instance_id: str = None, batch_size: int = None, feedback_filter: FeedbackFilter = FeedbackFilter.ALL, order_by: OrderBy = OrderBy.CREATED_AT):
         url = f"{self._base_url}/projects/{project_id}/instances"
         params = {}
         if last_instance_id is not None:
@@ -73,6 +80,8 @@ class OwnerClient:
             params['batch_size'] = batch_size
         if feedback_filter is not None:
             params['feedback_filter'] = feedback_filter.value
+        if order_by is not None:
+            params['order_by'] = order_by.value
         response = requests.get(url, headers=self._headers, params=params)
         return response.json(), response.status_code
 
@@ -95,7 +104,7 @@ class PredictorClient:
         response = requests.get(f"{self._base_url}/projects/{project_id}", headers=self._headers)
         return response.json(), response.status_code
 
-    def get_instance_batch(self, project_id: str, last_instance_id=None, batch_size=None, feedback_filter: FeedbackFilter = FeedbackFilter.ALL):
+    def get_instance_batch(self, project_id: str, last_instance_id=None, batch_size=None, feedback_filter: FeedbackFilter = FeedbackFilter.ALL, order_by: OrderBy = OrderBy.CREATED_AT):
         url = f"{self._base_url}/projects/{project_id}/instances"
         params = {}
         if last_instance_id is not None:
@@ -104,6 +113,8 @@ class PredictorClient:
             params['batch_size'] = batch_size
         if feedback_filter is not None:
             params['feedback_filter'] = feedback_filter.value
+        if order_by is not None:
+            params['order_by'] = order_by.value
         response = requests.get(url, headers=self._headers, params=params)
         return response.json(), response.status_code
 
