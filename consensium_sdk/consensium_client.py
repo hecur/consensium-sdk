@@ -13,6 +13,7 @@ class ProjectType(Enum):
 
 class OrderBy(Enum):
     CREATED_AT = 'created_at'
+    CREATED_AT_DESC = 'created_at_desc'
     RANDOM = 'random'
     VARIANCE = 'variance'
     FORECAST = 'forecast'
