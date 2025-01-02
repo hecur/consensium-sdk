@@ -16,6 +16,7 @@ class OrderBy(Enum):
     CREATED_AT_DESC = 'created_at_desc'
     RANDOM = 'random'
     VARIANCE = 'variance'
+    ENTROPY = 'entropy'
     FORECAST = 'forecast'
     BRAIDED = 'braided'
 
