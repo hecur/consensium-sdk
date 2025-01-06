@@ -1,6 +1,6 @@
 import requests
 from enum import Enum
-base_url = 'https://consensium-service-725186917460.europe-west2.run.app'
+base_url = 'https://prediction-broker-725186917460.europe-west2.run.app'
 
 class FeedbackFilter(Enum):
     NO_FEEDBACK = 'no_feedback'
