@@ -69,6 +69,10 @@ class OwnerClient:
         response = requests.post(f"{self._base_url}/projects/{project_id}/instances", headers=self._headers, json={"features": features})
         return response.json(), response.status_code
     
+    def put_instance_batch(self, project_id: str, instances: list[dict]):
+        response = requests.post(f"{self._base_url}/projects/{project_id}/instances/batch", headers=self._headers, json={"instances": instances})
+        return response.json(), response.status_code
+    
     def get_instance(self, project_id: str, instance_id: str):
         response = requests.get(f"{self._base_url}/projects/{project_id}/instances/{instance_id}", headers=self._headers)
         return response.json(), response.status_code
